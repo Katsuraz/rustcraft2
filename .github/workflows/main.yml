@@ -1,0 +1,17 @@
+name: Build RustCraft Launcher for Windows
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build Windows executable
+        run: cargo build --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RustCraft-Launcher-Windows
+          path: target/release/rustcraft-launcher.exe
+          if-no-files-found: error
